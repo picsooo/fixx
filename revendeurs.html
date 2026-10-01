@@ -1,0 +1,23 @@
+<!DOCTYPE html><html lang="fr"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="robots" content="noindex, nofollow"><meta name="theme-color" content="#0e0e0f">
+<link rel="stylesheet" href="style.css"><link rel="icon" href="img/logo.svg">
+<title>Revendeurs — KIMFIX</title></head><body data-v="auto">
+<div id="hdr"></div><main>
+<section class="ph"><div class="wrap in"><div><nav class="crumb"><a id="hm" href="index.html">Accueil</a><span>/</span><span>Revendeurs</span></nav>
+ <h1>Devenez revendeur KIMFIX</h1><p class="lead">Quincailleries, dépôts de matériaux, distributeurs : KIMFIX arrive sur le marché. Rejoignez le réseau dès le lancement.</p></div>
+ <div class="stage" style="gap:6px"><img src="img/c22.webp" alt="" style="height:62%"><img src="img/c52.webp" alt="" style="height:80%"><img src="img/c72.webp" alt="" style="height:96%"><img src="img/cnet.webp" alt="" style="height:72%"></div></div><div class="stripe"></div></section>
+<section><div class="wrap"><div class="perks">
+ <div class="perk rv"><div class="e">🇩🇿</div><h3>Produit national</h3><p>Une mousse fabriquée en Algérie, un argument fort auprès de vos clients.</p></div>
+ <div class="perk rv"><div class="e">📦</div><h3>Gamme complète</h3><p>4 formats, le nettoyant et le pistolet : tout le rayon mousse avec une seule marque.</p></div>
+ <div class="perk rv"><div class="e">📣</div><h3>Marque visible</h3><p>Des campagnes régulières sur Facebook et Instagram.</p></div>
+ <div class="perk rv"><div class="e">🤝</div><h3>Accompagnement</h3><p>Un interlocuteur dédié pour vos commandes et la mise en rayon.</p></div>
+</div></div></section>
+<section style="padding-top:0"><div class="wrap"><form class="f" id="rf" style="border:1px solid var(--line)"><h2 class="full" style="font-size:44px">Réserver ma place dans le réseau</h2>
+ <label>Nom / Commerce<input required></label><label>Téléphone<input type="tel" required></label>
+ <label>Wilaya<select id="w2"></select></label><label>Activité<select><option>Quincaillerie</option><option>Dépôt de matériaux</option><option>Distributeur régional</option><option>Entreprise du bâtiment</option></select></label>
+ <label class="full">Formats qui vous intéressent<textarea placeholder="Ex. : 32L et 72L, environ 10 cartons par mois"></textarea></label>
+ <button class="btn k" type="submit">Envoyer ma demande</button></form></div></section>
+</main><div id="ftr"></div>
+<script src="data.js"></script><script src="core.js"></script>
+<script>document.getElementById('hm').href=HOME;document.getElementById('w2').innerHTML=WILAYAS.map((w,i)=>'<option>'+String(i+1).padStart(2,'0')+' · '+w+'</option>').join('');document.getElementById('rf').onsubmit=e=>{e.preventDefault();okForm(e.target,'Demande envoyée !')};reveal();</script>
+</body></html>

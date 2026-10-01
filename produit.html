@@ -1,0 +1,29 @@
+<!DOCTYPE html><html lang="fr"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="robots" content="noindex, nofollow"><meta name="theme-color" content="#0e0e0f">
+<link rel="stylesheet" href="style.css"><link rel="icon" href="img/logo.svg">
+<title>Fiche produit — KIMFIX</title></head><body data-v="auto">
+<div id="hdr"></div><main>
+<section class="ph"><div class="wrap in"><div>
+ <nav class="crumb"><a id="hm" href="index.html">Accueil</a><span>/</span><a href="produits.html">Gamme</a><span>/</span><span id="cb"></span></nav>
+ <h1 id="pn"></h1><p class="lead" id="pl"></p><div class="chips" id="pc" style="margin-bottom:24px"></div>
+ <div style="display:flex;gap:10px;flex-wrap:wrap"><a class="btn y" href="revendeurs.html">Où l'acheter ?</a><a class="btn o" id="ask" href="#">Poser une question</a></div></div>
+ <div class="stage"><img id="pi" alt=""></div></div><div class="stripe"></div></section>
+<section style="padding-top:clamp(40px,5vw,70px)"><div class="wrap pgrid">
+ <div><div class="panel rv"><h2>Points forts</h2><ul id="pk"></ul></div>
+  <div class="panel rv"><h2>Conseils d'application</h2><div class="steps" id="steps"></div><p class="note">Conseils généraux. Se référer à l'étiquette et à la fiche technique KIMFIX.</p></div></div>
+ <div class="panel rv"><h2>En situation</h2><img id="cp" alt="" style="border-radius:14px" loading="lazy"><p class="note">Fiche technique et fiche de données de sécurité (PDF) : à ajouter.</p></div>
+</div></section>
+</main><div id="ftr"></div>
+<script src="data.js"></script><script src="core.js"></script>
+<script>
+const q=new URLSearchParams(location.search).get('p'),k=P[q]?q:'c32',p=P[k];document.title=p.name+' — KIMFIX';
+document.getElementById('hm').href=HOME;document.getElementById('ask').href=HOME+'#contact';
+document.getElementById('cb').textContent=p.name;document.getElementById('pn').textContent=p.name.replace('KIMFIX ','')+(p.vol?' · '+p.vol+'L':'');
+document.getElementById('pl').textContent=p.short;
+document.getElementById('pc').innerHTML=[p.tag,p.fmt].concat(p.vol?['≈ '+p.vol+' L de mousse','Intérieur & extérieur']:['Accessoire']).map(t=>'<span>'+t+'</span>').join('');
+const pi=document.getElementById('pi');pi.src=p.img;pi.alt=p.name;
+document.getElementById('pk').innerHTML=p.pts.map(t=>'<li>'+t+'</li>').join('');
+const ST=k==='net'?[['Agiter','Bien agiter l\'aérosol.'],['Visser','Visser sur le pistolet ou utiliser l\'embout.'],['Nettoyer','Pulvériser sur la mousse encore fraîche.'],['Essuyer','Essuyer avec un chiffon propre.']]:[['Préparer','Support propre, dépoussiéré, légèrement humidifié.'],['Agiter','Bien agiter la bombe une vingtaine de fois.'],['Appliquer',k==='c72'?'Visser sur le pistolet et doser.':'Fixer la paille, bombe tête en bas.'],['Laisser expanser','Remplir environ à moitié : la mousse gonfle. Découper après séchage.']];
+document.getElementById('steps').innerHTML=ST.map(s=>'<div><b>'+s[0]+'</b><span>'+s[1]+'</span></div>').join('');
+const cp=document.getElementById('cp');cp.src=p.camp;cp.alt='KIMFIX en situation';reveal();
+</script></body></html>

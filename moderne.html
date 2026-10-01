@@ -1,0 +1,58 @@
+<!DOCTYPE html><html lang="fr"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="robots" content="noindex, nofollow"><meta name="theme-color" content="#0e0e0f">
+<link rel="stylesheet" href="style.css"><link rel="icon" href="img/logo.svg">
+<title>KIMFIX — Version chantier</title>
+</head><body data-v="mod">
+<div id="hdr"></div><main>
+<section class="mh" id="mh"><canvas id="cv" aria-label="Zone où l'on projette de la mousse"></canvas>
+ <div class="wrap in"><div>
+  <h1>Ça<br><span>gonfle</span><br>et ça tient.</h1>
+  <p class="lead">Glisse sur l'écran pour projeter de la mousse KIMFIX et la regarder s'expanser. 🇩🇿 Made in Bladi.</p>
+  <span class="meter">Mousse projetée <b id="lit">0,0 L</b></span><br>
+  <button type="button" class="spr" id="spr">🧯 Activer le pistolet</button>
+  <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:18px"><a class="btn k" href="#chantier">Quel format pour moi ?</a><a class="btn o" href="#calcul">Calculer mes bombes</a></div></div>
+  <div class="big"><img src="img/c72.webp" alt="KIMFIX Tera 850 72L"></div></div>
+</section>
+<div class="stripe"></div>
+<section id="chantier"><div class="wrap"><div class="shead"><h2>Quel est<br>ton chantier&nbsp;?</h2><p>Choisis une situation, on te donne le bon format.</p></div>
+ <div class="sits" id="sits"></div><div class="reco" id="reco"></div></div></section>
+<section id="calcul"><div class="wrap"><div class="calc rv"><span class="tap tr"><i></i>Essayez</span>
+ <div><span class="kick" style="color:#0e0e0f">Calculateur</span><h2 style="margin-top:8px">Combien de bombes pour votre chantier ?</h2>
+  <div class="f3"><label>Longueur (m)<input id="cl" type="number" min="0" step="0.5" value="12"></label><label>Largeur du joint (cm)<input id="cw2" type="number" min="0" step="0.5" value="2"></label><label>Profondeur (cm)<input id="cd" type="number" min="0" step="0.5" value="5"></label></div></div>
+ <div><span style="font-weight:800">Volume à remplir</span><div class="vol" id="cv">0 L</div><div class="cres" id="cres"></div>
+  <p class="note">Estimation indicative basée sur le rendement annoncé de chaque format (22, 32, 52 et 72 litres de mousse).</p></div>
+</div></div></section>
+<section style="padding-top:0"><div class="wrap"><div class="shead"><h2>Toute la gamme</h2><p>Fais défiler les formats.</p></div></div><div class="hz" id="hz"></div></section>
+<section class="contact" id="contact"><div class="wrap cg">
+ <div><span class="kick">Contact</span><h2 style="margin-top:10px">Un chantier, une question, une commande&nbsp;?</h2>
+  <p style="opacity:.8;font-size:18px;margin:16px 0 24px;max-width:440px">Professionnels, revendeurs et particuliers : l'équipe KIMFIX vous répond.</p>
+  <div style="display:flex;gap:10px;flex-wrap:wrap"><a class="btn y" id="fbl" target="_blank" rel="noopener">Messenger · KimFix</a><a class="btn o" id="igl" target="_blank" rel="noopener">Instagram</a></div></div>
+ <form class="f" id="cform"><label>Nom<input required></label><label>Téléphone<input type="tel" required></label>
+  <label>Wilaya<select id="cw"></select></label><label>Vous êtes<select><option>Particulier</option><option>Artisan / applicateur</option><option>Entreprise du bâtiment</option><option>Revendeur / quincaillerie</option></select></label>
+  <label class="full">Votre demande<textarea placeholder="Ex. : pose de 20 fenêtres, quel format choisir ?"></textarea></label><button class="btn k" type="submit">Envoyer</button></form>
+</div></section>
+</main><div id="ftr"></div>
+<script src="data.js"></script><script src="core.js"></script>
+<script>
+// foam spray
+const mh=document.getElementById('mh'),cv=document.getElementById('cv'),cx=cv.getContext('2d');let W,H,dpr=Math.min(devicePixelRatio||1,2),blobs=[],down=false,last=null,litres=0;
+const base=document.createElement('canvas'),bx=base.getContext('2d');
+function size(){const r=mh.getBoundingClientRect();W=r.width;H=r.height;[cv,base].forEach(c=>{c.width=W*dpr;c.height=H*dpr});cx.setTransform(dpr,0,0,dpr,0,0);bx.setTransform(dpr,0,0,dpr,0,0)}size();addEventListener('resize',()=>{if(Math.abs(mh.getBoundingClientRect().width-W)>40)size()});
+function drawBlob(c,x,y,r){const g=c.createRadialGradient(x-r*.35,y-r*.35,r*.1,x,y,r);g.addColorStop(0,'#fffaf0');g.addColorStop(.6,'#f3e3b6');g.addColorStop(1,'#d9c38a');c.fillStyle=g;c.beginPath();c.arc(x,y,r,0,7);c.fill()}
+function spray(x,y){for(let i=0;i<3;i++)blobs.push({x:x+(Math.random()-.5)*26,y:y+(Math.random()-.5)*26,r:0,R:7+Math.random()*16,t:0});litres+=.02;document.getElementById('lit').textContent=litres.toFixed(1).replace('.',',')+' L'}
+const pos=e=>{const r=cv.getBoundingClientRect();return{x:e.clientX-r.left,y:e.clientY-r.top}};
+mh.addEventListener('pointerdown',e=>{if(e.target.closest('a,button'))return;if(e.pointerType==='touch'&&!mh.classList.contains('spraying'))return;down=true;last=pos(e);spray(last.x,last.y)});
+addEventListener('pointerup',()=>{down=false});
+mh.addEventListener('pointermove',e=>{if(!down)return;const p=pos(e),d=Math.hypot(p.x-last.x,p.y-last.y);const n=Math.ceil(d/10);for(let i=1;i<=n;i++)spray(last.x+(p.x-last.x)*i/n,last.y+(p.y-last.y)*i/n);last=p});
+document.getElementById('spr').onclick=()=>{const on=mh.classList.toggle('spraying');document.getElementById('spr').textContent=on?'✋ Arrêter et faire défiler':'🧯 Activer le pistolet'};
+(function loop(){cx.clearRect(0,0,W,H);cx.drawImage(base,0,0,W,H);blobs=blobs.filter(b=>{b.t+=.035;const k=1-Math.pow(1-Math.min(b.t,1),3);b.r=b.R*k;if(b.t>=1){drawBlob(bx,b.x,b.y,b.R);return false}drawBlob(cx,b.x,b.y,b.r);return true});requestAnimationFrame(loop)})();
+(function demo(){let x=W*.1,y=H*.82,i=0;const t=setInterval(()=>{if(i++>70){clearInterval(t);return}spray(x+i*W*.006,y-Math.sin(i/9)*40)},25)})();
+// situations
+const SIT=[['Fenêtre à poser','c32','Pour la pose et le calfeutrage d\'une fenêtre, la 32L avec paille suffit : précise et sans outil.'],['Petite fissure','c22','Pour un trou ou une fissure ponctuelle, la 22L compacte fait le travail sans gaspillage.'],['Porte et menuiserie','c52','Pour fixer et isoler portes et cadres, la 52L offre une haute expansion et un collage puissant.'],['Gros chantier','c72','Pour de grands volumes et toutes les positions, la 72L au pistolet est la version pro.'],['Nettoyer mon pistolet','net','Le nettoyant enlève la mousse fraîche du pistolet et des surfaces, sans les abîmer.']];
+const st=document.getElementById('sits');st.innerHTML=SIT.map((s,i)=>'<button type="button" data-i="'+i+'">'+s[0]+'</button>').join('');
+function pick(i){st.querySelectorAll('button').forEach(b=>b.classList.toggle('on',+b.dataset.i===i));const s=SIT[i],p=P[s[1]];document.getElementById('reco').innerHTML='<img src="'+p.img+'" alt="'+p.name+'"><div><span class="kick">Notre conseil</span><h3>'+p.name+(p.vol?' · '+p.vol+'L':'')+'</h3><p>'+s[2]+'</p><a class="btn k" href="produit.html?p='+s[1]+'">Voir la fiche</a></div>'}
+st.onclick=e=>{const b=e.target.closest('button');if(b)pick(+b.dataset.i)};pick(0);
+document.getElementById('hz').innerHTML=ORDER.map(k=>{const p=P[k];return '<a href="produit.html?p='+k+'"><div><b>'+(p.vol?p.vol+'L':'PRO')+'</b><h3>'+p.name.replace('KIMFIX ','')+'</h3></div><img src="'+p.img+'" alt="" loading="lazy"><span style="font-weight:800;color:var(--y)">Voir la fiche →</span></a>'}).join('');
+document.getElementById('fbl').href=FB;document.getElementById('igl').href=IG;document.getElementById('cw').innerHTML=WILAYAS.map(w=>'<option>'+w+'</option>').join('');document.getElementById('cform').onsubmit=e=>{e.preventDefault();okForm(e.target,'Message envoyé !')};calcInit(document.getElementById('calcul'));
+reveal();
+</script></body></html>
