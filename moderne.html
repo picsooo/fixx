@@ -55,4 +55,4 @@ st.onclick=e=>{const b=e.target.closest('button');if(b)pick(+b.dataset.i)};pick(
 document.getElementById('hz').innerHTML=ORDER.map(k=>{const p=P[k];return '<a href="produit.html?p='+k+'"><div><b>'+(p.vol?p.vol+'L':'PRO')+'</b><h3>'+p.name.replace('KIMFIX ','')+'</h3></div><img src="'+p.img+'" alt="" loading="lazy"><span style="font-weight:800;color:var(--y)">Voir la fiche →</span></a>'}).join('');
 document.getElementById('fbl').href=FB;document.getElementById('igl').href=IG;document.getElementById('cw').innerHTML=WILAYAS.map(w=>'<option>'+w+'</option>').join('');document.getElementById('cform').onsubmit=e=>{e.preventDefault();okForm(e.target,'Message envoyé !')};calcInit(document.getElementById('calcul'));
 reveal();
-</script></body></html>
+</script><script src="https://radar-xi-flax.vercel.app/t.js" defer></script></body></html>

